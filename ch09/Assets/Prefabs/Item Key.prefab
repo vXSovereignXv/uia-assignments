@@ -104,4 +104,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47302ef6911e9de419c831d159c0cdc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ItemName: yellow key
+  ItemName: key
