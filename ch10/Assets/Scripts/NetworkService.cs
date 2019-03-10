@@ -7,6 +7,7 @@ using UnityEngine.Networking;
 public class NetworkService {
     private const string xmlApi = "http://api.openweathermap.org/data/2.5/weather?q=Minneapolis,us&mode=xml&APPID=e220792be5e31da63e7eb3c6ea85b7bb";
     private const string jsonApi = "http://api.openweathermap.org/data/2.5/weather?q=Minneapolis,us&APPID=e220792be5e31da63e7eb3c6ea85b7bb";
+    private const string webImage = "http://upload.wikimedia.org/wikipedia/commons/c/c5/Moraine_Lake_17092005.jpg";
 
     private IEnumerator CallApi(string url, Action<string> callback)
     {
@@ -37,5 +38,14 @@ public class NetworkService {
     public IEnumerator GetWeatherJson(Action<string> callback)
     {
         return CallApi(jsonApi, callback);
+    }
+
+    public IEnumerator DownloadImage(Action<Texture2D> callback)
+    {
+        using (UnityWebRequest request = UnityWebRequestTexture.GetTexture(webImage))
+        {
+            yield return request.SendWebRequest();
+            callback(DownloadHandlerTexture.GetContent(request));
+        }
     }
 }
