@@ -17,7 +17,7 @@ public class PlayerManager : MonoBehaviour, IGameManager
 
         _network = network;
 
-        health = 50;
+        health = 100;
         maxHealth = 100;
 
         status = ManagerStatus.Started;
@@ -38,5 +38,6 @@ public class PlayerManager : MonoBehaviour, IGameManager
         }
 
         Debug.Log($"Health: {health}/{maxHealth}");
+        Messenger.Broadcast(GameEvent.HEALTH_UPDATED);
     }
 }

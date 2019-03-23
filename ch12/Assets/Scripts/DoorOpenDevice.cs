@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DoorOpenDevice : MonoBehaviour
+public class DoorOpenDevice : BaseDevice
 {
     [SerializeField] private Vector3 dPos;
     [SerializeField] private float openTime = 1f;
@@ -10,7 +10,7 @@ public class DoorOpenDevice : MonoBehaviour
     private bool _open;
     private bool operating;
 
-    public void Operate()
+    public override void Operate()
     {
         if (!operating)
         {
