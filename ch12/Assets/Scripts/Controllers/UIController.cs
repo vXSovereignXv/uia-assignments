@@ -9,15 +9,18 @@ public class UIController : MonoBehaviour
     [SerializeField] private Slider healthBar;
     [SerializeField] private Text healthLabel;
     [SerializeField] private InventoryPopup popup;
+    [SerializeField] private Text levelEnding;
 
     private void Awake()
     {
         Messenger.AddListener(GameEvent.HEALTH_UPDATED, OnHealthUpdated);
+        Messenger.AddListener(GameEvent.LEVEL_COMPLETE, OnLevelComplete);
     }
 
     private void OnDestroy()
     {
         Messenger.RemoveListener(GameEvent.HEALTH_UPDATED, OnHealthUpdated);
+        Messenger.RemoveListener(GameEvent.LEVEL_COMPLETE, OnLevelComplete);
     }
 
     private void Start()
@@ -25,6 +28,7 @@ public class UIController : MonoBehaviour
         healthBar.maxValue = Managers.Player.maxHealth;
         healthBar.value = Managers.Player.health;
         OnHealthUpdated();
+        levelEnding.gameObject.SetActive(false);
         popup.gameObject.SetActive(false);
     }
 
@@ -44,5 +48,20 @@ public class UIController : MonoBehaviour
 
         string message = Managers.Player.health + " / " + Managers.Player.maxHealth;
         healthLabel.text = message;
+    }
+
+    private void OnLevelComplete()
+    {
+        StartCoroutine(CompleteLevel());
+    }
+
+    private IEnumerator CompleteLevel()
+    {
+        levelEnding.gameObject.SetActive(true);
+        levelEnding.text = "Level Complete!";
+
+        yield return new WaitForSeconds(2);
+
+        Managers.Mission.GoToNext();
     }
 }
