@@ -37,4 +37,5 @@ sysinfo.txt
 /*/obj/
 /*/Logs/
 /*/Temp/
-/*/Build/
+/*/[Bb]uild/
+/*/[Bb]uilds/
